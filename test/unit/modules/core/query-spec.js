@@ -16,8 +16,8 @@ describe("Keen.Query", function() {
   });
 
   afterEach(function(){
-    this.project = void 0;
-    this.query = void 0;
+    this.project = undefined;
+    this.query = undefined;
   });
 
   describe("constructor", function() {
@@ -115,7 +115,5 @@ describe("Keen.Query", function() {
     });
 
   });
-
-
 
 });
