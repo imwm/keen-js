@@ -29,6 +29,7 @@ module.exports = function(path, params, callback){
 
   function handleResponse(err, res){
     responseHandler(err, res, callback);
+    callback = null;
   }
 
   return;
