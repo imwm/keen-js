@@ -23,8 +23,8 @@ describe("Keen.Request", function() {
   });
 
   afterEach(function() {
-    this.client = undefined;
-    this.countQuery = undefined;
+    this.client = void 0;
+    this.countQuery = void 0;
   });
 
   describe("<Client>.run method", function() {
