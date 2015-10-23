@@ -103,7 +103,7 @@ describe("Keen.Request", function() {
     });
 
     describe("saved queries", function() {
-      it("returns result of the saved query", function(done) {
+      it("returns result of the saved query when saved query is found", function(done) {
         var savedQuery = new Keen.Query("saved", { queryName: "page-visit-count" });
         var savedQueryResponse = {
           query_name: "page-visit-count",
@@ -118,6 +118,21 @@ describe("Keen.Request", function() {
 
         this.client.run(savedQuery, function(err, res) {
           expect(res).to.deep.equal(countQueryResponse);
+          done();
+        });
+      });
+
+      it("returns an error if saved query is not found", function(done) {
+        var savedQuery = new Keen.Query("saved", { queryName: "page-visit-count" });
+        var savedQueryResponse = {
+          message: "Query not found",
+          error_code: "QueryNotFound"
+        };
+        mock.get("/queries/saved/page-visit-count", 404, JSON2.stringify(savedQueryResponse));
+
+        this.client.run(savedQuery, function(err, res) {
+          expect(err["code"]).to.equal("QueryNotFound");
+          expect(res).to.be.a("null");
           done();
         });
       });

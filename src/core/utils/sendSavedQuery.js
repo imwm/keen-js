@@ -16,7 +16,12 @@ module.exports = function(path, params, callback){
     .end(handleSavedQueryResponse);
 
   function handleSavedQueryResponse(err, res) {
-    sendQuery.call(_this, '/queries/' + res.body.query.analysis_type, res.body.query, callback);
+    if (res.body.message) {
+      responseHandler(err, res, callback);
+    }
+    else {
+      sendQuery.call(_this, '/queries/' + res.body.query.analysis_type, res.body.query, callback);
+    }
     callback = null;
   }
 
