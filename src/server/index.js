@@ -6,13 +6,13 @@ extend(Keen.prototype, {
   "addEvents"           : require("../core/lib/addEvents"),
   "del"                 : require("./lib/del"),
   "fetchSavedQuery"     : require("../core/lib/fetchSavedQuery"),
+  "fetchSavedQueries"   : require("../core/lib/fetchSavedQueries"),
   "get"                 : require("./lib/get"),
   "post"                : require("../core/lib/post"),
   "put"                 : require("../core/lib/post"),
   "run"                 : require("../core/lib/run"),
   "setGlobalProperties" : require("../core/lib/setGlobalProperties")
 });
-console.log("wooo");
 
 Keen.Query = require("../core/query");
 Keen.Request = require("../core/request");

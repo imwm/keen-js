@@ -27,6 +27,8 @@
 
   extend(Keen.prototype, {
     "get"                 : require("./core/lib/get"),
+    "fetchSavedQuery"     : require("./core/lib/fetchSavedQuery"),
+    "fetchSavedQueries"   : require("./core/lib/fetchSavedQueries"),
     "run"                 : require("./core/lib/run")
   });
 
