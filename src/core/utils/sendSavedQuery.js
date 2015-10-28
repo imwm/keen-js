@@ -4,7 +4,7 @@ var responseHandler = require('../helpers/superagent-handle-response');
 var sendQuery = require('./sendQuery');
 
 module.exports = function(path, params, callback){
-  var url = this.client.url(path) + '/' + params.query_name;
+  var url = this.client.url(path) + '/' + params.query_name + '/' + result;
   var _this = this;
 
   request
@@ -20,7 +20,7 @@ module.exports = function(path, params, callback){
       responseHandler(err, res, callback);
     }
     else {
-      sendQuery.call(_this, '/queries/' + res.body.query.analysis_type, res.body.query, callback);
+      responseHandler(err, res.result, callback);
     }
     callback = null;
   }
