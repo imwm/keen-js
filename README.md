@@ -217,21 +217,76 @@ Keen.ready(function(){
 Read more about advanced queries in our [query guide](./docs/query.md).
 
 
-## Query Caching
+## Saved Queries
 
-Data sent to Keen is available for querying almost immediately. For use cases that don’t require up-to-the-second answers but require fast performance, query caching can be used to speed up a query. To include query caching as a feature, just add the `maxAge` query parameter to any other query parameters you’ve already specified. The first time your application makes a query specifying the max_age the answer will be calculated normally before it can be cached for future uses.
+There are multiple ways to retrieve saved queries.
+
+If you want to look at all available saved queries for a project, you can use
+`client.fetchSavedQueries`.
+
+### Example Usage
 
 ```javascript
-var count = new Keen.Query("count", {
-    eventCollection: "pageviews",
-    groupBy: "property",
-    timeframe: "this_7_days",
-    maxAge: 300 // include maxAge as a query parameter to activate Query Caching
+// Create a client instance
+var client = new Keen({
+  projectId: "YOUR_PROJECT_ID",
+  readKey: "YOUR_READ_KEY"
+});
+
+Keen.ready(function() {
+  client.fetchSavedQueries(function(err, res) {
+    if (err) {
+      // there was an error
+    }
+    else {
+      // do something with array of saved queries
+    }
+  });
 });
 ```
-`maxAge` is an integer which represents seconds. The maximum value for `maxAge` is 129600 seconds or 36 hours. Read more about Query Caching in the Keen IO [Data Analysis Docs](https://keen.io/docs/data-analysis/caching/).
 
-**Tip:** If you want to speed up your queries but maintain freshness, you can cache a year-long query and combine the result with a normal query that calculates the most current day’s answer.
+You can also fetch the results of a single saved query using `client.fetchSavedQuery` and the string of the query name:
+
+```javascript
+// Create a client instance
+var client = new Keen({
+  projectId: "YOUR_PROJECT_ID",
+  readKey: "YOUR_READ_KEY"
+});
+
+Keen.ready(function() {
+  client.fetchSavedQuery("saved-query-name", function(err, res) {
+    if (err) {
+      // there was an error
+    }
+    else {
+      // do something with single saved query object
+    }
+  });
+});
+```
+
+
+If you only want to see the query results of a saved query, you can use `client.run` by passing in the query name.
+
+```javascript
+// Create a client instance
+var client = new Keen({
+  projectId: "YOUR_PROJECT_ID",
+  readKey: "YOUR_READ_KEY"
+});
+
+Keen.ready(function() {
+  client.run("your-saved-query-id-here", function(err, res) {
+    if (err) {
+      // there was an error
+    }
+    else {
+      // query results are returned here
+    }
+  });
+});
+```
 
 
 ## Visualization
