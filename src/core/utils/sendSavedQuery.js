@@ -4,7 +4,7 @@ var responseHandler = require('../helpers/superagent-handle-response');
 var sendQuery = require('./sendQuery');
 
 module.exports = function(path, params, callback){
-  var url = this.client.url(path) + '/' + params.query_name + '/' + result;
+  var url = this.client.url(path) + '/' + params.query_name + '/result';
   var _this = this;
 
   request
@@ -16,12 +16,7 @@ module.exports = function(path, params, callback){
     .end(handleSavedQueryResponse);
 
   function handleSavedQueryResponse(err, res) {
-    if (res.body.message) {
-      responseHandler(err, res, callback);
-    }
-    else {
-      responseHandler(err, res.result, callback);
-    }
+    responseHandler(err, res, callback);
     callback = null;
   }
 
