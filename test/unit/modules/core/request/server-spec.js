@@ -110,14 +110,13 @@ describe("Keen.Request", function() {
           query: {
             analysis_type: "count",
             event_collection: "pagevisits"
-          }
+          },
+          result: 100
         };
-        var countQueryResponse = { result: 100 };
-        mock.get("/queries/saved/page-visit-count", 200, JSON2.stringify(savedQueryResponse));
-        mock.post("/queries/count", 200, JSON2.stringify(countQueryResponse));
+        mock.get("/queries/saved/page-visit-count/result", 200, JSON2.stringify(savedQueryResponse));
 
         this.client.run(savedQuery, function(err, res) {
-          expect(res).to.deep.equal(countQueryResponse);
+          expect(res).to.deep.equal(savedQueryResponse);
           done();
         });
       });
@@ -128,7 +127,7 @@ describe("Keen.Request", function() {
           message: "Query not found",
           error_code: "QueryNotFound"
         };
-        mock.get("/queries/saved/page-visit-count", 404, JSON2.stringify(savedQueryResponse));
+        mock.get("/queries/saved/page-visit-count/result", 404, JSON2.stringify(savedQueryResponse));
 
         this.client.run(savedQuery, function(err, res) {
           expect(err["code"]).to.equal("QueryNotFound");
@@ -138,40 +137,6 @@ describe("Keen.Request", function() {
       });
     });
 
-  });
-
-
-  describe("<Client>.fetchSavedQuery method", function() {
-    it("fetches the result of a saved query", function(done) {
-      var savedQueryResponse = {
-        query_name: "page-visit-count",
-        query: {
-          analysis_type: "count",
-          event_collection: "pagevisits"
-        }
-      };
-      mock.get("/queries/saved/page-visit-count", 200, JSON2.stringify(savedQueryResponse));
-
-      this.client.fetchSavedQuery("page-visit-count", function(err, res) {
-        expect(res).to.deep.equal(savedQueryResponse);
-        done();
-      });
-    });
-  });
-
-  describe("<Client>.fetchSavedQueries method", function() {
-    it("fetches all saved queries for a project", function(done) {
-      var savedQueriesResponse = [
-        { query_name: "page-visit-count" },
-        { query_name: "extraction-saved-queries" },
-      ];
-      mock.get("/queries/saved/", 200, JSON2.stringify(savedQueriesResponse));
-
-      this.client.fetchSavedQueries(function(err, res) {
-        expect(res).to.deep.equal(savedQueriesResponse);
-        done();
-      });
-    });
   });
 
 });
