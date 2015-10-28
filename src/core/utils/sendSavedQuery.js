@@ -10,7 +10,7 @@ module.exports = function(path, params, callback){
   request
     .get(url)
     .set('Content-Type', 'application/json')
-    .set('Authorization', this.client.masterKey())
+    .set('Authorization', _this.client.masterKey())
     .timeout(this.timeout())
     .send(params || {})
     .end(handleSavedQueryResponse);

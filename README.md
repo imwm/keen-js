@@ -233,7 +233,7 @@ var client = new Keen({
 });
 
 Keen.ready(function() {
-  client.SavedQuery.all(function(err, res) {
+  client.SavedQuery().all(function(err, res) {
     if (err) {
       // there was an error
     }
@@ -254,7 +254,7 @@ var client = new Keen({
 });
 
 Keen.ready(function() {
-  client.SavedQuery.get("saved-query-name", function(err, res) {
+  client.SavedQuery().get("saved-query-name", function(err, res) {
     if (err) {
       // there was an error
     }
@@ -275,7 +275,7 @@ var client = new Keen({
 });
 
 Keen.ready(function() {
-client.SavedQuery.create("saved-query-name",
+client.SavedQuery().create("saved-query-name",
   {
     refresh_rate: 0,
     query: { ... },
@@ -305,7 +305,7 @@ var client = new Keen({
 });
 
 Keen.ready(function() {
-  client.SavedQuery.update("saved-query-name",
+  client.SavedQuery().update("saved-query-name",
     { refresh_rate: 86400 },
     function(err, res) {
       if (err) {
@@ -329,7 +329,7 @@ var client = new Keen({
 });
 
 Keen.ready(function() {
-  client.SavedQuery.destroy("saved-query-name", function(err, res) {
+  client.SavedQuery().destroy("saved-query-name", function(err, res) {
     if (err) {
       // there was an error
     }
