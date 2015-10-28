@@ -34,7 +34,7 @@ describe("Keen.SavedQuery", function() {
     });
   });
 
-  describe("get", function() {
+  describe("#get", function() {
     it("returns a response when successful", function(done) {
       var savedQueryResponse = { query_name: "page-visit-count" };
       mock.get("/queries/saved/page-visit-count", 200, JSON2.stringify(savedQueryResponse));
@@ -46,7 +46,7 @@ describe("Keen.SavedQuery", function() {
     });
   })
 
-  describe("update", function() {
+  describe("#update", function() {
     it("returns a response when successful", function(done) {
       var updatedQueryResponse = { query_name: "page-visit-counts" };
       mock.put("/queries/saved/page-visit-count", 200, JSON2.stringify(updatedQueryResponse));
@@ -58,7 +58,7 @@ describe("Keen.SavedQuery", function() {
     });
   });
 
-  describe("create", function() {
+  describe("#create", function() {
     it("returns a response when successful", function(done) {
       var createdQueryResponse = { query_name: "page-visit-counts" };
       mock.put("/queries/saved/page-visit-count", 201, JSON2.stringify(createdQueryResponse));
@@ -70,11 +70,11 @@ describe("Keen.SavedQuery", function() {
     });
   });
 
-  describe("delete", function() {
+  describe("#destroy", function() {
     it("returns a response when successful", function(done) {
       mock.del("/queries/saved/page-visit-count", 204, "");
 
-      this.client.SavedQuery().delete("page-visit-count", function(err, res) {
+      this.client.SavedQuery().destroy("page-visit-count", function(err, res) {
         expect(res).to.be.empty()
         done();
       });

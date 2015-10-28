@@ -329,7 +329,7 @@ var client = new Keen({
 });
 
 Keen.ready(function() {
-  client.SavedQuery.delete("saved-query-name", function(err, res) {
+  client.SavedQuery.destroy("saved-query-name", function(err, res) {
     if (err) {
       // there was an error
     }
