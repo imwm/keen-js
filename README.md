@@ -221,8 +221,7 @@ Read more about advanced queries in our [query guide](./docs/query.md).
 
 There are multiple ways to retrieve saved queries.
 
-If you want to look at all available saved queries for a project, you can use
-`client.fetchSavedQueries`.
+To look at all available saved queries for a project:
 
 ### Example Usage
 
@@ -234,7 +233,7 @@ var client = new Keen({
 });
 
 Keen.ready(function() {
-  client.fetchSavedQueries(function(err, res) {
+  client.SavedQuery.all(function(err, res) {
     if (err) {
       // there was an error
     }
@@ -245,7 +244,7 @@ Keen.ready(function() {
 });
 ```
 
-You can also fetch the results of a single saved query using `client.fetchSavedQuery` and the string of the query name:
+To look at all an individual saved query:
 
 ```javascript
 // Create a client instance
@@ -255,7 +254,7 @@ var client = new Keen({
 });
 
 Keen.ready(function() {
-  client.fetchSavedQuery("saved-query-name", function(err, res) {
+  client.SavedQuery.get("saved-query-name", function(err, res) {
     if (err) {
       // there was an error
     }
@@ -266,6 +265,80 @@ Keen.ready(function() {
 });
 ```
 
+To create a saved query:
+
+```javascript
+// Create a client instance
+var client = new Keen({
+  projectId: "YOUR_PROJECT_ID",
+  readKey: "YOUR_READ_KEY"
+});
+
+Keen.ready(function() {
+client.SavedQuery.create("saved-query-name",
+  {
+    refresh_rate: 0,
+    query: { ... },
+    metadata: { 
+      display_name: "saved query name",
+      ...
+    }
+  },
+  function(err, res) {
+    if (err) {
+      // there was an error
+    }
+    else {
+      // your saved query was created successfully!
+    }
+  });
+});
+```
+
+To update a saved query:
+
+```javascript
+// Create a client instance
+var client = new Keen({
+  projectId: "YOUR_PROJECT_ID",
+  readKey: "YOUR_READ_KEY"
+});
+
+Keen.ready(function() {
+  client.SavedQuery.update("saved-query-name",
+    { refresh_rate: 86400 },
+    function(err, res) {
+      if (err) {
+        // there was an error
+      }
+      else {
+        // your saved query was updated successfully!
+      }
+    });
+  });
+});
+```
+
+To delete a saved query:
+
+```javascript
+// Create a client instance
+var client = new Keen({
+  projectId: "YOUR_PROJECT_ID",
+  readKey: "YOUR_READ_KEY"
+});
+
+Keen.ready(function() {
+  client.SavedQuery.delete("saved-query-name", function(err, res) {
+    if (err) {
+      // there was an error
+    }
+    else {
+      // your saved query was deleted successfully!
+    }
+  });
+});
+```
 
 If you only want to see the query results of a saved query, you can use `client.run` by passing in the query name.
 
