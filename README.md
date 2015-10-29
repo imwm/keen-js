@@ -231,7 +231,7 @@ var client = new Keen({
 });
 
 Keen.ready(function() {
-  var savedQuery = this.client.SavedQuery();
+  var savedQuery = this.client.savedQuery();
 
   // Get all saved queries in a project
   savedQuery.all(function(err, res) {

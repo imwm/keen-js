@@ -34,7 +34,7 @@
     "post"                : require("./core/lib/post"),
     "put"                 : require("./core/lib/post"),
     "run"                 : require("./core/lib/run"),
-    "SavedQuery"          : require("./core/saved-query"),
+    "savedQuery"          : require("./core/saved-query"),
     "draw"                : require("./dataviz/extensions/draw")
   });
 
