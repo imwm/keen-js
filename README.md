@@ -219,9 +219,7 @@ Read more about advanced queries in our [query guide](./docs/query.md).
 
 ## Saved Queries
 
-There are multiple ways to retrieve saved queries.
-
-To look at all available saved queries for a project:
+There are multiple ways to interact with the saved queries API.
 
 ### Example Usage
 
@@ -233,7 +231,10 @@ var client = new Keen({
 });
 
 Keen.ready(function() {
-  client.SavedQuery().all(function(err, res) {
+  var savedQuery = this.client.SavedQuery();
+
+  // Get all saved queries in a project
+  savedQuery.all(function(err, res) {
     if (err) {
       // there was an error
     }
@@ -241,20 +242,9 @@ Keen.ready(function() {
       // do something with array of saved queries
     }
   });
-});
-```
 
-To look at all an individual saved query:
-
-```javascript
-// Create a client instance
-var client = new Keen({
-  projectId: "YOUR_PROJECT_ID",
-  readKey: "YOUR_READ_KEY"
-});
-
-Keen.ready(function() {
-  client.SavedQuery().get("saved-query-name", function(err, res) {
+  // Get individual saved query by name
+  savedQuery.get("saved-query-name", function(err, res) {
     if (err) {
       // there was an error
     }
@@ -262,50 +252,29 @@ Keen.ready(function() {
       // do something with single saved query object
     }
   });
-});
-```
 
-To create a saved query:
-
-```javascript
-// Create a client instance
-var client = new Keen({
-  projectId: "YOUR_PROJECT_ID",
-  readKey: "YOUR_READ_KEY"
-});
-
-Keen.ready(function() {
-client.SavedQuery().create("saved-query-name",
-  {
-    refresh_rate: 0,
-    query: { ... },
-    metadata: { 
-      display_name: "saved query name",
-      ...
+  // Create a new saved query
+  savedQuery.create("saved-query-name",
+    {
+      refresh_rate: 0,
+      query: { ... },
+      metadata: { 
+        display_name: "saved query name",
+        ...
+      }
+    },
+    function(err, res) {
+      if (err) {
+        // there was an error
+      }
+      else {
+        // your saved query was created successfully!
+      }
     }
-  },
-  function(err, res) {
-    if (err) {
-      // there was an error
-    }
-    else {
-      // your saved query was created successfully!
-    }
-  });
-});
-```
+  );
 
-To update a saved query:
-
-```javascript
-// Create a client instance
-var client = new Keen({
-  projectId: "YOUR_PROJECT_ID",
-  readKey: "YOUR_READ_KEY"
-});
-
-Keen.ready(function() {
-  client.SavedQuery().update("saved-query-name",
+  // Update an existing saved query
+  savedQuery.update("saved-query-name",
     { refresh_rate: 86400 },
     function(err, res) {
       if (err) {
@@ -314,22 +283,11 @@ Keen.ready(function() {
       else {
         // your saved query was updated successfully!
       }
-    });
-  });
-});
-```
+    }
+  );
 
-To delete a saved query:
-
-```javascript
-// Create a client instance
-var client = new Keen({
-  projectId: "YOUR_PROJECT_ID",
-  readKey: "YOUR_READ_KEY"
-});
-
-Keen.ready(function() {
-  client.SavedQuery().destroy("saved-query-name", function(err, res) {
+  // Delete an existing saved query
+  savedQuery.destroy("saved-query-name", function(err, res) {
     if (err) {
       // there was an error
     }
